@@ -36,16 +36,17 @@
                                     {{ $d->roles->implode('name', ', ') }}
                                 </td>
                                 <td class="w-1/4 border border-green-600 p-2">
-                                    @can('role-edit')
+                                    @can('user-edit')
                                         <a href="{{ route('users.edit', ['user' => $d->id]) }}" class="bg-blue-600 text-white rounded-md p-2">Edit</a>
                                     @endcan
-                                    @can('role-delete')
+                                    @can('user-delete')
+                                        @if($d->id != auth()->user()->id)
                                         <form action="{{ route('users.destroy', ['user' => $d->id]) }}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button href="#" class="bg-red-600 text-white rounded-md p-2">Delete</button>
-                                        </form>
-                                        
+                                        </form> 
+                                        @endif
                                     @endcan
                                 </td>
                             </tr>
