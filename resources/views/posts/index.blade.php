@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Roles') }}
+                {{ __('Posts') }}
             </h2>
-            @can('role-create')
-                <a class="bg-blue-600 text-white rounded-md p-2" href="{{ url('/roles/create') }}">Add Role</a>
+            @can('post-create')
+                <a class="bg-blue-600 text-white rounded-md p-2" href="{{ url('/posts/create') }}">Add Post</a>
             @endcan
         </div>
         
@@ -19,13 +19,10 @@
                         <thead>
                             <tr>
                                 <th class="w-1/3 border border-green-600 p-2">
-                                    Role 
+                                    Title 
                                 </th>
                                 <th class="w-1/4 border border-green-600 p-2">
-                                    Guard Name
-                                </th>
-                                <th class="w-1/4 border border-green-600 p-2">
-                                    Permissions
+                                    Body
                                 </th>
                                 <th class="w-1/4 border border-green-600 p-2">
                                     Action
@@ -36,35 +33,21 @@
                             @foreach( $data as $d )
                             <tr>
                                 <td class="w-1/3 border border-green-600 p-2">
-                                    {{ $d->name }}
+                                    {{ $d->title }}
                                 </td>
                                 <td class="w-1/4 border border-green-600 p-2">
-                                    {{ $d->guard_name }}
+                                    {{ $d->body }}
                                 </td>
                                 <td class="w-1/4 border border-green-600 p-2">
-                                    @if($d->name == 'Super Admin')
-                                        All
-                                    @else
-                                        @php    
-                                            $permissions = $d->permissions;
-                                            $permissions = $permissions->sortBy('name');
-                                        @endphp
-                                        @foreach($permissions as $permission)
-                                            <p>{{ $permission->name }}</p>
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td class="w-1/4 border border-green-600 p-2">
-                                    @can('role-edit')
-                                        <a href="{{ route('roles.edit', ['role' => $d->id]) }}" class="bg-blue-600 text-white rounded-md p-2">Edit</a>
+                                    @can('post-edit')
+                                        <a href="{{ route('posts.edit', ['post' => $d->id]) }}" class="bg-blue-600 text-white rounded-md p-2">Edit</a>
                                     @endcan
-                                    @can('role-delete')
-                                        <form action="{{ route('roles.destroy', ['role' => $d->id]) }}" method="post">
+                                    @can('post-delete')
+                                        <form action="{{ route('posts.destroy', ['post' => $d->id]) }}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button href="#" class="bg-red-600 text-white rounded-md p-2">Delete</button>
                                         </form>
-                                        
                                     @endcan
                                 </td>
                             </tr>

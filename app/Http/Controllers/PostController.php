@@ -58,7 +58,7 @@ class PostController extends Controller
     
         Post::create($input);
     
-        return redirect()->route('posts.index')
+        return redirect()->route('posts')
             ->with('success','Post created successfully.');
     }
 
@@ -106,7 +106,7 @@ class PostController extends Controller
     
         $post->update($request->all());
     
-        return redirect()->route('posts.index')
+        return redirect()->route('posts')
             ->with('success', 'Post updated successfully.');
     }
 
@@ -120,7 +120,7 @@ class PostController extends Controller
     {
         Post::find($id)->delete();
     
-        return redirect()->route('posts.index')
+        return redirect()->route('posts')
             ->with('success', 'Post deleted successfully.');
     }
 }

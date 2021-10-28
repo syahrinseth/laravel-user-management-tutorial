@@ -25,6 +25,11 @@
                             {{ __('Roles') }}
                         </x-nav-link>
                     @endcan
+                    @can('post-list')
+                        <x-nav-link :href="route('posts')" :active="request()->routeIs('posts')">
+                            {{ __('Posts') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
